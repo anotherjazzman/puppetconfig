@@ -8,7 +8,7 @@ class nginx-puppet {
       notify => Exec['run_install'],
   }
   exec { 'run_install':
-      command => '/bin/bash -c /tmp/puppetconfig/nginx-puppet/files/nginx_install.sh',
+      command => '/bin/bash -c /tmp/puppetconfig/modules/nginx-puppet/files/nginx_install.sh',
       refreshonly => true
   }
 }
