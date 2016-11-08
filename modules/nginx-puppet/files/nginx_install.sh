@@ -3,17 +3,25 @@
 ##############################################################################
 # Program Name  : nginx_install.sh
 # Input         : <none>
-# Output        : <none>
+# Output        : Installation and configuration of nginx with a custom page
+#               : at port 8000
 #               :
-# Dependencies  : None
+# Dependencies  : Puppet Agent Installed
+#               : nginx not installed
+#               : Git installed
+#               : OS - Ubuntu 16.04
 # Contact       : Joe N. Milligan <jmilligan@nspartners.com>
 # Notes         :
-# Keyword       : UNIX
+# Keyword       : Linux
 ##############################################################################
+
+# Run a system update to ensure latest software installed.
 
 sudo apt-get update
 
 APTGET_UPDATE=`echo $?`
+
+# Verify that system update had no issues.
 
 if [ "$APTGET_UPDATE" -ne 0 ]
 then
@@ -21,9 +29,13 @@ then
     exit $APTGET_UPDATE
 fi
 
+# Run install of nginx
+
 sudo apt-get install nginx -y
 
 APTGET_INSTALL_NGINX=`echo $?`
+
+# Verify that install of nginx had no issues.
 
 if [ "$APTGET_INSTALL_NGINX" -ne 0 ]
 then
@@ -31,9 +43,13 @@ then
     exit $APTGET_INSTALL_NGINX
 fi
 
+# Run firewall update to allow access to nginx sites
+
 sudo ufw allow 'Nginx HTTP'
 
 UFW_ALLOW=`echo $?`
+
+# Verify that update had no issues.
 
 if [ "$UFW_ALLOW" -ne 0 ]
 then
@@ -41,9 +57,13 @@ then
     exit $UFW_ALLOW
 fi
 
-sudo systemctl status nginx # look for active (running)
+# Run status on nginx 
+
+sudo systemctl status nginx 
 
 RUNNING_NGINX=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$RUNNING_NGINX" -ne 0 ]
 then
@@ -51,9 +71,13 @@ then
     exit $RUNNING_NGINX
 fi
 
+# Enable restart of nginx on reboot of server
+
 sudo systemctl enable nginx
 
 ENABLE_NGINX=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$ENABLE_NGINX" -ne 0 ]
 then
@@ -61,9 +85,13 @@ then
     exit $ENABLE_NGINX
 fi
 
+# make directory for new site
+
 sudo mkdir -p /var/www/psetse.com/html
 
 MKDIR_CONTENT=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$MKDIR_CONTENT" -ne 0 ]
 then
@@ -71,9 +99,13 @@ then
     exit $MKDIR_CONTENT
 fi
 
+# Change ownership of file
+
 sudo chown -R $USER:$USER /var/www/psetse.com/html
 
 CHOWN_NGINX=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$CHOWN_NGINX" -ne 0 ]
 then
@@ -81,9 +113,13 @@ then
     exit $CHOWN_NGINX
 fi
 
+# Change mode on directory for nginx
+
 sudo chmod -R 0755 /var/www
 
 CHMOD_NGINX=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$CHMOD_NGINX" -ne 0 ]
 then
@@ -91,9 +127,13 @@ then
     exit $CHMOD_NGINX
 fi
 
+# Change directory in preparation for git clone 
+
 cd /tmp
 
 CD_TMP=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$CD_TMP" -ne 0 ]
 then
@@ -101,11 +141,13 @@ then
     exit $CD_TMP
 fi
 
-# git clone pse/tse index.html file
+# git clone pse/tse index.html file for nginx site
 
 git clone https://github.com/puppetlabs/exercise-webpage
 
 GIT_CLONE=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$GIT_CLONE" -ne 0 ]
 then
@@ -113,9 +155,13 @@ then
     exit $GIT_CLONE
 fi
 
+# Copy psetese index.hmtl to appropriate nginx site
+
 sudo cp /tmp/exercise-webpage/index.html /var/www/psetse.com/html
 
 CP_INDEX=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$CP_INDEX" -ne 0 ]
 then
@@ -123,9 +169,13 @@ then
     exit $CP_INDEX
 fi
 
+# Copy psetse nginx port configuration file to appropriate location
+
 sudo cp /tmp/puppetconfig/modules/nginx-puppet/files/nginx.conf /etc/nginx/sites-available/psetse.com
 
 CP_NGINX=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$CP_NGINX" -ne 0 ]
 then
@@ -133,9 +183,13 @@ then
     exit $CP_NGINX
 fi
 
+# Link psetse nginx port configuration file to appropriate location
+
 sudo ln -s /etc/nginx/sites-available/psetse.com /etc/nginx/sites-enabled
 
 LN_NGINX=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$LN_NGINX" -ne 0 ]
 then
@@ -143,9 +197,13 @@ then
     exit $LN_NGINX
 fi
 
+# Confirm that there are no issue with the updated nginx configuration
+
 sudo nginx -t
 
 T_NGINX=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$T_NGINX" -ne 0 ]
 then
@@ -153,9 +211,13 @@ then
     exit $T_NGINX
 fi
 
+# Perform a restart of nginx to reload the new configuration
+
 sudo systemctl restart nginx
 
 RESTART_NGINX=`echo $?`
+
+# Verify that there was no issues
 
 if [ "$RESTART_NGINX" -ne 0 ]
 then
