@@ -103,7 +103,7 @@ fi
 
 # git clone pse/tse index.html file
 
-git clone git@github.com:puppetlabs/exercise-webpage.git
+git clone https://github.com/puppetlabs/exercise-webpage
 
 GIT_CLONE=`echo $?`
 
