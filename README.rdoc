@@ -1,0 +1,40 @@
+= Installation of nginx
+
+This automates the installation of nginx using Puppet that runs on Ubuntu 16.04.
+
+= Components
+
+The project is based on the following technology components:
+
+* Puppet configuration files
+* Bash scripts
+* Git
+* Ubuntu 16.04
+
+= Design Considerations
+
+After understanding the problem space, it was clear that an automation tool would be required for this task like Puppet. A typical Puppet master/agent was not used to create this setup. I used a masterless puppet (agent) configuration to develop the solution. Used AWS EC2 instances (running Ubuntu 16.04) wih Puppet installed to develop/test.
+
+= Configuration 
+
+Login as a non-root user on Ubuntu 16.04
+
+Change to temporary directory
+
+  cd /tmp
+
+To download the solution you must clone the repository
+
+  git clone https://github.com/anotherjazzman/puppetconfig
+
+Change to installation directory
+
+  cd /tmp/puppetconfig
+
+= Run installation
+
+  sudo /bin/bash -c ./nginx_setup.sh
+
+= Post Installation
+
+  Go to your browser and put in the url '<hostname>:8000' to bring up the page.
