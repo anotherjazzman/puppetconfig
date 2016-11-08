@@ -93,7 +93,7 @@ fi
 
 cd /tmp
 
-CD_HOME=`echo $?`
+CD_TMP=`echo $?`
 
 if [ "$CD_TMP" -ne 0 ]
 then
@@ -123,7 +123,7 @@ then
     exit $CP_INDEX
 fi
 
-sudo cp $HOME/puppetconfig/modules/nginx-puppet/files/nginx.conf /etc/nginx/sites-available/psetse.com
+sudo cp /tmp/puppetconfig/modules/nginx-puppet/files/nginx.conf /etc/nginx/sites-available/psetse.com
 
 CP_NGINX=`echo $?`
 
