@@ -123,7 +123,7 @@ then
     exit $CP_INDEX
 fi
 
-sudo cp $HOME/puppetconfig/nginx.conf /etc/nginx/sites-available/psetse.com
+sudo cp $HOME/puppetconfig/modules/nginx-puppet/files/nginx.conf /etc/nginx/sites-available/psetse.com
 
 CP_NGINX=`echo $?`
 
