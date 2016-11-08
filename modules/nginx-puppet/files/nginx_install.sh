@@ -91,14 +91,14 @@ then
     exit $CHMOD_NGINX
 fi
 
-cd $HOME
+cd /tmp
 
 CD_HOME=`echo $?`
 
-if [ "$CD_HOME" -ne 0 ]
+if [ "$CD_TMP" -ne 0 ]
 then
-    echo "CD_HOME ERROR: Unable to change to home directory. Error code $CD_HOME\n"
-    exit $CD_HOME
+    echo "CD_TMP ERROR: Unable to change to home directory. Error code $CD_TMP\n"
+    exit $CD_TMP
 fi
 
 # git clone pse/tse index.html file
@@ -113,7 +113,7 @@ then
     exit $GIT_CLONE
 fi
 
-sudo cp $HOME/exercise-webpage/index.html /var/www/psetse.com/html
+sudo cp /tmp/exercise-webpage/index.html /var/www/psetse.com/html
 
 CP_INDEX=`echo $?`
 
