@@ -1,3 +1,3 @@
-node default {
+node 'psetse.com' {
     include nginx-puppet
 }
