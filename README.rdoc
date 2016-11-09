@@ -10,12 +10,13 @@ The project is based on the following technology components:
 * Bash scripts
 * Git
 
-= Requirements of Test System 
+= Requirements of Test System (Pre-installed Software)
 
 Below are the requirements of the test system where the installation was executed:
 
 * Ubuntu 16.04 (AWS EC2 AMI Instance)
 * Puppet Agent 3.8.5 (installed prior to running the installation)
+* Git version 2.7.4
 
 
 = Design Considerations
