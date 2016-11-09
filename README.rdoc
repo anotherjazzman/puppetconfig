@@ -14,7 +14,7 @@ The project is based on the following technology components:
 
 Below are the requirements of the test system where the installation was executed:
 
-* Ubuntu 16.04 (AWS EC2 AMI Instance)
+* Ubuntu 16.04 
 * Puppet Agent 3.8.5 (installed prior to running the installation)
 * Git version 2.7.4
 
@@ -25,7 +25,7 @@ After understanding the problem space, it was clear that an automation tool woul
 
 = Configuration 
 
-Login as a non-root user on Ubuntu 16.04
+Login as a non-root user on a system running Ubuntu 16.04, Puppet Agent, and Git
 
 Change to temporary directory
 
